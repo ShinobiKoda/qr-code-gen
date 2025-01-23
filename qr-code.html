@@ -8,22 +8,21 @@
   </head>
   <body>
     <main class="qr-code-main">
-        <div class="qr-wrapper">
-            <div class="qr-bg"></div>
-            <div id="qr-code" class="qr-code"></div>
-        </div>
+      <div class="qr-wrapper">
+        <div class="qr-bg"></div>
+        <div id="qr-code" class="qr-code"></div>
+      </div>
 
-        <div class="get-image">
-            <button id="download-btn">
-                <span>Download</span>
-                <img src="./assets/images/Load_circle_duotone.svg" alt="">
-            </button>
-            <button id="share-btn">
-                <span>Share</span>
-                <img src="./assets/images/link_alt.svg" alt="">
-            </button>
-        </div>
-
+      <div class="get-image">
+        <button id="download-btn">
+          <span>Download</span>
+          <img src="./assets/images/Load_circle_duotone.svg" alt="" />
+        </button>
+        <button id="share-btn">
+          <span>Share</span>
+          <img src="./assets/images/link_alt.svg" alt="" />
+        </button>
+      </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
@@ -52,44 +51,60 @@
 
       // Function to download the QR code as an image
       function downloadQrCode() {
-        const qrCanvas = qr_code.querySelector('canvas');
-        if (qrCanvas) {
-          const link = document.createElement('a');
-          link.href = qrCanvas.toDataURL('image/png');
-          link.download = 'qr-code.png';
+        const qrCanvas = qr_code.querySelector("canvas");
+        const url = getQueryParam("text"); // Retrieve the URL from the query parameter
+        if (qrCanvas && url) {
+          // Sanitize the URL to create a valid filename
+          const sanitizedUrl = url
+            .replace(/[^a-zA-Z0-9]/g, "_")
+            .substring(5, 30); // Replace non-alphanumeric characters with underscores and limit the length
+          const link = document.createElement("a");
+          link.href = qrCanvas.toDataURL("image/png");
+          link.download = `${sanitizedUrl}_qr-code.png`; // Use the sanitized URL in the filename
           link.click();
+        } else {
+          alert("No QR code available to download.");
         }
       }
 
       // Function to show toast notification
       function showToast(message) {
-        const toast = document.createElement('div');
-        toast.className = 'toast';
+        const toast = document.createElement("div");
+        toast.className = "toast";
         toast.innerHTML = `<div id="desc">${message}</div>`;
         document.body.appendChild(toast);
-        toast.classList.add('show');
+        toast.classList.add("show");
         setTimeout(() => {
-            toast.classList.remove('show');
-            document.body.removeChild(toast);
+          toast.classList.remove("show");
+          document.body.removeChild(toast);
         }, 3000);
       }
 
       // Function to copy the QR code image link to clipboard
       function shareQrCode() {
-        const qrCanvas = qr_code.querySelector('canvas');
+        const qrCanvas = qr_code.querySelector("canvas");
         if (qrCanvas) {
-          qrCanvas.toBlob(blob => {
-            const item = new ClipboardItem({ 'image/png': blob });
-            navigator.clipboard.write([item]).then(() => {
-              showToast('Copied to clipboard!');
+          const imageUrl = qrCanvas.toDataURL("image/png"); // Generate a data URL for the QR code image
+          navigator.clipboard
+            .writeText(imageUrl)
+            .then(() => {
+              showToast("Link copied to clipboard!");
+            })
+            .catch((err) => {
+              console.error("Failed to copy  link: ", err);
+              showToast("Failed to copy link.");
             });
-          });
+        } else {
+          showToast("No QR code available to share.");
         }
       }
 
-      document.getElementById('download-btn').addEventListener('click', downloadQrCode);
-      document.getElementById('share-btn').addEventListener('click', shareQrCode);
+      document
+        .getElementById("download-btn")
+        .addEventListener("click", downloadQrCode);
+      document
+        .getElementById("share-btn")
+        .addEventListener("click", shareQrCode);
     </script>
-    
   </body>
 </html>
