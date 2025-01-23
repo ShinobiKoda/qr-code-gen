@@ -20,7 +20,19 @@ function generateQrCode() {
     }
 }
 
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `<div id="desc">${message}</div>`;
+    document.body.appendChild(toast);
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+        document.body.removeChild(toast);
+    }, 3000);
+}
+
 generate_qr.onclick = () => {
-    generateQrCode()
-    console.log("clicked");
+    generateQrCode();
+    showToast("QR Code copied to clipboard successfully!");
 };

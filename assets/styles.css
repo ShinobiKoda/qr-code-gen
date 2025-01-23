@@ -36,9 +36,8 @@ body{
 .qr-code-main{
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 4rem;
     text-align: center;
-    padding: 0 1rem;
 }
 
 .qr-wrapper{
@@ -50,8 +49,8 @@ body{
 }
 
 .qr-bg{
-   height: 15rem;
-   width: 15rem;
+   height: 17rem;
+   width: 17rem;
    background-color: #282e3e;
    border-radius: 50%;
    position: absolute;
@@ -60,7 +59,6 @@ body{
 
 .qr-code{
     background-color: white;
-    width: 100%;
     padding: 1.5rem; /* Increased padding */
     border-radius: 0.5rem;
 }
@@ -136,8 +134,81 @@ body{
     display: block;
 }
 
+.get-image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+}
 
+.get-image button{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #273fa9;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    outline: none;
+    border: none;
 
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.get-image button:hover{
+    opacity: 0.8;
+}
+
+.toast {
+    visibility: hidden;
+    height: 50px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    position: fixed;
+    z-index: 1;
+    right: 10px;
+    top: 30px;
+    font-size: 17px;
+}
+
+.toast #desc {
+    color: #fff;
+    padding: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.toast.show {
+    visibility: visible;
+    /* Add animation: Take 0.5 seconds to fade in and out the toast. */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
 
 @media screen and (min-width: 600px) {
     body{

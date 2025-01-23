@@ -13,11 +13,15 @@
             <div id="qr-code" class="qr-code"></div>
         </div>
 
-        <div>
-            <button>
-                Download
+        <div class="get-image">
+            <button id="download-btn">
+                <span>Download</span>
+                <img src="./assets/images/Load_circle_duotone.svg" alt="">
             </button>
-            <button>Share</button>
+            <button id="share-btn">
+                <span>Share</span>
+                <img src="./assets/images/link_alt.svg" alt="">
+            </button>
         </div>
 
     </main>
@@ -36,8 +40,8 @@
       if (url) {
         new QRCode(qr_code, {
           text: url,
-          width: 150, // Increased size
-          height: 150, // Increased size
+          width: 170, // Increased size
+          height: 170, // Increased size
           colorDark: "#000000",
           colorLight: "#ffffff",
           correctLevel: QRCode.CorrectLevel.H,
@@ -45,6 +49,47 @@
       } else {
         qr_code.innerHTML = "<p>No URL provided to generate QR Code.</p>";
       }
+
+      // Function to download the QR code as an image
+      function downloadQrCode() {
+        const qrCanvas = qr_code.querySelector('canvas');
+        if (qrCanvas) {
+          const link = document.createElement('a');
+          link.href = qrCanvas.toDataURL('image/png');
+          link.download = 'qr-code.png';
+          link.click();
+        }
+      }
+
+      // Function to show toast notification
+      function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `<div id="desc">${message}</div>`;
+        document.body.appendChild(toast);
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+            document.body.removeChild(toast);
+        }, 3000);
+      }
+
+      // Function to copy the QR code image link to clipboard
+      function shareQrCode() {
+        const qrCanvas = qr_code.querySelector('canvas');
+        if (qrCanvas) {
+          qrCanvas.toBlob(blob => {
+            const item = new ClipboardItem({ 'image/png': blob });
+            navigator.clipboard.write([item]).then(() => {
+              showToast('Copied to clipboard!');
+            });
+          });
+        }
+      }
+
+      document.getElementById('download-btn').addEventListener('click', downloadQrCode);
+      document.getElementById('share-btn').addEventListener('click', shareQrCode);
     </script>
+    
   </body>
 </html>
