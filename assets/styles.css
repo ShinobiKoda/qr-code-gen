@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html,
@@ -46,13 +47,14 @@ body{
 
 .qr-code-input{
     width: 100%;
-    background-color: black;
+    background-color: #030617;
     padding: 1rem 1.2rem;
     border-radius: 0.7rem;
     display: flex;
     align-items: center;
+    gap: 0.5rem;
     justify-content: space-between;
-    
+    outline: 4px solid #273fa9;
 }
 
 .qr-code-input input{
@@ -61,23 +63,31 @@ body{
     outline: none;
     color: white;
     font-size: 1.1rem;
-    width: 70%;
+    padding: 0 0.5rem;
+    width: 60%;
 
 }
 
-.qr-code-input button{
+.qr-code-input input::placeholder{
+    color: white;
+    font-style: italic;
+}
+
+.qr-code-input a{
     padding: 0.7rem 1rem;
     font-weight: 600;
     font-size: 1.1rem;
-    background-color: blue;
+    background-color: #273fa9;
     border: none;
     outline: none;
     border-radius: 0.4rem;
     cursor: pointer;
     color: white;
+
+    text-decoration: none;
 }
 
-.qr-code-input button:hover{
+.qr-code-input a:hover{
     opacity: 0.9;
 }
 
