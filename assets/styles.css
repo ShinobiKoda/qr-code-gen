@@ -126,7 +126,8 @@ body{
 }
 
 .error-msg{
-    color: white;
+    color: crimson;
+    font-style: italic;
     display: none;
 }
 
