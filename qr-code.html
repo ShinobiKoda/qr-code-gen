@@ -8,16 +8,16 @@
   </head>
   <body>
     <main class="qr-code-main">
-        <div id="qr-code" class="qr-code"></div>
-        <div class="">
+        <div class="qr-wrapper">
+            <div class="qr-bg"></div>
+            <div id="qr-code" class="qr-code"></div>
+        </div>
+
+        <div>
             <button>
-                <span>Download</span>
-                <span></span>
+                Download
             </button>
-            <button>
-                <span>Share</span>
-                <span></span>
-            </button>
+            <button>Share</button>
         </div>
 
     </main>
@@ -36,8 +36,8 @@
       if (url) {
         new QRCode(qr_code, {
           text: url,
-          width: 128,
-          height: 128,
+          width: 150, // Increased size
+          height: 150, // Increased size
           colorDark: "#000000",
           colorLight: "#ffffff",
           correctLevel: QRCode.CorrectLevel.H,
