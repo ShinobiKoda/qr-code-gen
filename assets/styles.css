@@ -33,6 +33,19 @@ body{
     align-items: center;
 }
 
+.qr-code-main{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+}
+
+.qr-code{
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+}
+
 .qr-code-logo{
     width: 12rem;
     display: flex;
@@ -93,6 +106,15 @@ body{
 
 .big-logo{
     display: none;
+}
+
+.error-msg{
+    color: white;
+    display: none;
+}
+
+.show{
+    display: block;
 }
 
 

@@ -15,10 +15,27 @@
     </div>
     <div class="qr-code-input" tabindex="0">
       <input type="text" placeholder="Enter a url" id="qr-text">
-      <a id="generate-qrcode" href="./qr-code.html">QR Code</a>
+      <a id="generate-qrcode" href="#" onclick="navigateToQrPage()">QR Code</a>
     </div>
+    <p class="error-msg">Please add a url</p>
   </main>
-  <script src="./assets/script.js"></script>
+  <script>
+     const qr_text = document.getElementById('qr-text');
+  const generate_qr = document.getElementById('generate-qrcode');
+  const error_msg = document.querySelector(".error-msg")
+
+  function navigateToQrPage() {
+    const url = qr_text.value.trim(); // Get the input value
+    error_msg.classList.remove("show");
+    if (url) {
+      // Redirect to the second page with the input as a query parameter
+      window.location.href = `./qr-code.html?text=${encodeURIComponent(url)}`;
+      error_msg.classList.remove("show");
+    } else {
+      error_msg.classList.add("show");
+    }
+  }
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </body>
 </html>

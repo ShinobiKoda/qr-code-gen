@@ -1,13 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/styles.css" />
     <title>QR | Code</title>
-</head>
-<body>
-    <div id="qr-code"></div>
-    <script src="./assets/script.js"></script>
-</body>
+  </head>
+  <body>
+    <main class="qr-code-main">
+        <div id="qr-code" class="qr-code"></div>
+        <div class="">
+            <button>
+                <span>Download</span>
+                <span></span>
+            </button>
+            <button>
+                <span>Share</span>
+                <span></span>
+            </button>
+        </div>
+
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+      const qr_code = document.getElementById("qr-code");
+
+      // Function to get query parameters from the URL
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+
+      // Get the 'text' parameter and generate the QR code
+      const url = getQueryParam("text");
+      if (url) {
+        new QRCode(qr_code, {
+          text: url,
+          width: 128,
+          height: 128,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.H,
+        });
+      } else {
+        qr_code.innerHTML = "<p>No URL provided to generate QR Code.</p>";
+      }
+    </script>
+  </body>
 </html>
